@@ -15,7 +15,8 @@ const Clock = () => {
   }, []);
 
 
-
+  const currentTimeString = time.toLocaleTimeString();
+  const currentDateString = time.toDateString();
 
   // export class ClockToggle extends React.Component {
   //   render () {
@@ -67,7 +68,9 @@ const Clock = () => {
 
   return (
     <div>
-      <h1>{time.toLocaleTimeString()}</h1>
+      <h1>Clock</h1>
+      <p>{currentTimeString}</p>
+      <p>{currentDateString}</p>
     </div>
   );
 };
