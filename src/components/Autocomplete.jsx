@@ -1,25 +1,59 @@
-import React from 'react';
+// import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useState, useEffect, useRef } from 'react';
 
-class Autocomplete extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputVal: '',
-      showList: false
+
+
+
+const Autocomplete = ({ names }) => {
+  const [inputVal, setinputVal] = useState("");
+  const [showList, setshowList] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (inputRef.current && !inputRef.current.contatins(e.target)) {
+        setshowList(false)
+      }
     };
-    this.inputRef = React.createRef();
-  }
 
-  componentDidUpdate() {
-    if (this.state.showList) {
-      document.addEventListener('click', this.handleOutsideClick);
-    } else {
-      console.log("Removing Autocomplete listener on update!");
-      document.removeEventListener('click', this.handleOutsideClick);
-    }
-  }
 
+
+
+
+
+}
+
+
+
+
+
+
+
+
+// class Autocomplete extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       inputVal: '',
+//       showList: false
+//     };
+//     this.inputRef = React.createRef();
+//   }
+
+//   componentDidUpdate() {
+//     if (this.state.showList) {
+//       document.addEventListener('click', this.handleOutsideClick);
+//     } else {
+//       console.log("Removing Autocomplete listener on update!");
+//       document.removeEventListener('click', this.handleOutsideClick);
+//     }
+//   }
+// handleOutsideClick = () => {
+//     // Leave dropdown visible as long as input is focused
+//     if (document.activeElement === this.inputRef.current) return;
+//     else this.setState({ showList: false });
+//   }
   componentWillUnmount () {
     console.log("Cleaning up event listener from Autocomplete!");
     document.removeEventListener('click', this.handleOutsideClick);
@@ -34,11 +68,7 @@ class Autocomplete extends React.Component {
     this.setState({ inputVal: e.target.innerHTML, showList: false });
   }
 
-  handleOutsideClick = () => {
-    // Leave dropdown visible as long as input is focused
-    if (document.activeElement === this.inputRef.current) return;
-    else this.setState({ showList: false });
-  }
+
 
   matches = () => {
     const { inputVal } = this.state;
